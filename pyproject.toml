@@ -15,4 +15,4 @@ dependencies = [
 readme = "README.md"
 
 [project.entry-points.'dpdata.plugins']
-abihist = "dpdata_abinit:abihist"
+abihist = "dpdata_abinit:AbihistFormat"
