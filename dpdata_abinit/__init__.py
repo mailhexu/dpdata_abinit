@@ -8,7 +8,7 @@ from dpdata.format import Format
 from dpdata_abinit.histnc import to_system_data
 
 
-def to_system_data(fname):
+def to_system_data(fname,  rotate_structures=False):
     hist=HistFile.from_file(fname)
     ntime=hist.num_steps
     structures=hist.structures
@@ -25,7 +25,6 @@ def to_system_data(fname):
             'orig': np.zeros(3),
             'nopbc': not np.any(s0.get_pbc())
             }
-    print(system)
     system['cells']=[]
     system['coords']=[]
     system['forces']=[]
@@ -49,11 +48,12 @@ def to_system_data(fname):
     if 'virials' in system:
         # TODO: check this against https://github.com/mailhexu/dpdata/blob/master/dpdata/plugins/ase.py
         # line 162, where 1e3 is 1e4.
-        v_pref = 1 * 1e3 / 1.602176621e6
+        #kbar-> virial  1e3
+        #GPar-> virial  1e4
+        v_pref = -1 * 1e4 / 1.602176621e6
         for ii in range(system['cells'].shape[0]):
             vol = np.linalg.det(np.reshape(system['cells'][ii], [3, 3]))
             system['virials'][ii] *= v_pref * vol
-
     return system
 
 def write_npy_files(system, path):
