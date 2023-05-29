@@ -13,7 +13,7 @@ and the corresponding energies, forces, and stresses. Here we call this file
  Abinit_hist_file.abihist
 
 2. Write a python script like this. 
-```
+```Python
 #!/usr/bin/env python3
 
 import dpdata
