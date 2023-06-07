@@ -37,6 +37,8 @@ def to_system_data(fname,  rotate_structures=False):
         system['cells'].append(atoms.get_cell().array)
         system['coords'].append(atoms.get_positions())
         system['forces'].append(atoms.arrays["cartesian_forces"])
+        #system['forces'].append(atoms.arrays.cartesian_forces.flatten())
+
 
 
     system['cells'] = np.array(system['cells'])
